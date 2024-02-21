@@ -1,5 +1,5 @@
 import React from "react";
-
+import logo from "../../assets/logo.png"
 const Footer = () => {
   return (
     <>
@@ -10,7 +10,7 @@ const Footer = () => {
               <div className="mb-10 w-full">
                 <a href="/#" className="mb-6 inline-block max-w-[160px]">
                   <img
-                    src="https://cdn.tailgrids.com/2.0/image/assets/images/logo/logo-primary.svg"
+                    src={logo}
                     alt="logo"
                     className="max-w-full"
                   />
@@ -133,7 +133,7 @@ const Footer = () => {
                   </a>
                 </div>
                 <p className="text-base text-body-color dark:text-dark-6">
-                  &copy; 2025 TailGrids
+                  &copy; 2024 Maintenance
                 </p>
               </div>
             </div>

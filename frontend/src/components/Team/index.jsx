@@ -23,24 +23,24 @@ const Team = () => {
 
         <div className="-mx-4 flex flex-wrap justify-center">
           <TeamCard
-            name="Coriss Ambady"
-            profession="Web Developer"
+            name="Aymen Kouki"
+            profession="Service Technician"
             imageSrc="https://i.ibb.co/T1J9LD4/image-03-2.jpg"
           />
           <TeamCard
-            name="Coriss Ambady"
-            profession="Web Developer"
+            name="Rania Rezgui"
+            profession="Assistant"
             imageSrc="https://i.ibb.co/8P6cvVy/image-01-1.jpg"
           />
           <TeamCard
-            name="Coriss Ambady"
-            profession="Web Developer"
+            name="Montasser Zammely"
+            profession="Service Technician"
             imageSrc="https://i.ibb.co/30tGtjP/image-04.jpg"
           />
           <TeamCard
-            name="Coriss Ambady"
-            profession="Web Developer"
-            imageSrc="https://i.ibb.co/yVVT0Dp/image-02-2.jpg"
+            name="Karima Maaoui"
+            profession="Assistant"
+            imageSrc="https://i.ibb.co/8P6cvVy/image-01-1.jpg"
           />
         </div>
       </div>

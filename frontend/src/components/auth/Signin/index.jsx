@@ -1,7 +1,34 @@
-import React from "react";
+import React, { useState } from "react";
+import Navbar from "../../Navbar/navbar"
+import logo from "../../../assets/logo.png"
+import axios from "axios"
 
 const Signin = () => {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    const data = {
+      email,
+      password,
+    };
+    console.log("login data", data);
+
+    axios
+      .post("http://localhost:5000/auth/login", data)
+      .then((response) => {
+        console.log(response);
+        
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  };
   return (
+    <>
+    <Navbar />   
     <section className="bg-gray-1 py-20 dark:bg-dark lg:py-[120px]">
       <div className="container mx-auto">
         <div className="-mx-4 flex flex-wrap">
@@ -13,26 +40,39 @@ const Signin = () => {
                   className="mx-auto inline-block max-w-[160px]"
                 >
                   <img
-                    src="https://cdn.tailgrids.com/2.0/image/assets/images/logo/logo-primary.svg"
+                    src={logo}
                     alt="logo"
                   />
                 </a>
               </div>
-              <form>
-                <InputBox type="email" name="email" placeholder="Email" />
-                <InputBox
-                  type="password"
-                  name="password"
-                  placeholder="Password"
-                />
-                <div className="mb-10">
-                  <input
-                    type="submit"
-                    value="Sign In"
-                    className="w-full cursor-pointer rounded-md border border-primary bg-primary px-5 py-3 text-base font-medium text-white transition hover:bg-opacity-90"
+              <form onSubmit={handleSubmit}>
+              
+
+                  <InputBox
+                    type="email"
+                    name="email"
+                    value={email}
+                    onChange={(e) =>{
+                      setEmail(e.target.value)}}
+                    placeholder="Email"
                   />
-                </div>
-              </form>
+
+                  <InputBox
+                    type="password"
+                    name="password"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    placeholder="Password"
+                  />
+                  <div className="mb-10">
+                    <input
+                      type="submit"
+                      value="Sign Up"
+                      className="w-full cursor-pointer rounded-md border border-primary bg-primary px-5 py-3 text-base font-medium text-white transition hover:bg-opacity-90"
+                    />
+                  </div>
+                </form>
+       
               <p className="mb-6 text-base text-secondary-color dark:text-dark-7">
                 Connect With
               </p>
@@ -334,18 +374,21 @@ const Signin = () => {
         </div>
       </div>
     </section>
-  );
+
+    </>
+   );
 };
 
 export default Signin;
-
-const InputBox = ({ type, placeholder, name }) => {
+const InputBox = ({ type,name,value,onChange, placeholder }) => {
   return (
     <div className="mb-6">
       <input
         type={type}
-        placeholder={placeholder}
         name={name}
+        value={value}
+        onChange={onChange}
+        placeholder={placeholder}
         className="w-full rounded-md border border-stroke bg-transparent px-5 py-3 text-base text-body-color outline-none focus:border-primary focus-visible:shadow-none dark:border-dark-3 dark:text-white"
       />
     </div>

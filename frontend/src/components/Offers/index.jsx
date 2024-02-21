@@ -23,7 +23,7 @@ const Service = () => {
 
         <div className="-mx-4 flex flex-wrap">
           <ServiceCard
-            title="Refreshing Design"
+            title="Equipment Management"
             details="We dejoy working with discerning clients, people for whom qualuty, service, integrity & aesthetics."
             icon={
               <svg
@@ -41,7 +41,7 @@ const Service = () => {
             }
           />
           <ServiceCard
-            title="Based on Tailwind CSS"
+            title="Equipment Management"
             details="We dejoy working with discerning clients, people for whom qualuty, service, integrity & aesthetics."
             icon={
               <svg
@@ -61,7 +61,7 @@ const Service = () => {
             }
           />
           <ServiceCard
-            title="100+ Components"
+            title="Equipment Management"
             details="We dejoy working with discerning clients, people for whom qualuty, service, integrity & aesthetics."
             icon={
               <svg
@@ -91,7 +91,7 @@ const Service = () => {
             }
           />
           <ServiceCard
-            title="Speed Optimized"
+            title="Equipment Management"
             details="We dejoy working with discerning clients, people for whom qualuty, service, integrity & aesthetics."
             icon={
               <svg
@@ -113,7 +113,7 @@ const Service = () => {
             }
           />
           <ServiceCard
-            title="Fully Customizable"
+            title="Equipment Management"
             details="We dejoy working with discerning clients, people for whom qualuty, service, integrity & aesthetics."
             icon={
               <svg
@@ -131,7 +131,7 @@ const Service = () => {
             }
           />
           <ServiceCard
-            title="Regular Updates"
+            title="Equipment Management"
             details="We dejoy working with discerning clients, people for whom qualuty, service, integrity & aesthetics."
             icon={
               <svg

@@ -39,7 +39,7 @@ const Contact = () => {
                       Our Location
                     </h4>
                     <p className="text-base text-body-color dark:text-dark-6">
-                      99 S.t Jomblo Park Pekanbaru 28292. Indonesia
+                      1006 Tunisia. Tunisia
                     </p>
                   </div>
                 </div>
@@ -79,7 +79,7 @@ const Contact = () => {
                       Phone Number
                     </h4>
                     <p className="text-base text-body-color dark:text-dark-6">
-                      (+62)81 414 257 9980
+                      (+216)71 570 906 
                     </p>
                   </div>
                 </div>
