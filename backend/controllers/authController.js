@@ -5,7 +5,6 @@ const jwt =require("jsonwebtoken")
 
 const register=async (req,res)=>{
     const {firstname,lastname,email,password} = req.body;
-   
     // Check if all required fields are provided
     if (!firstname || !lastname || !email || !password) {
         return res.status(400).json({ message: "All fields are required" });
@@ -135,7 +134,7 @@ const login = async (req,res)=>{
 
     res.cookie("jwt",refreshToken,{
         httpOnly: true,  //accessible only by web server not js can access
-        secure: true, //https
+        secure: true, //accessible https
         sameSite : "None", //send to the domain that you deploy your app cross-site cookie
         maxAge: 7*24*60*60*1000 //expire date of the cookie  1000 1s * 60s * 60m * 24 hours * 7 numbre of days
 
