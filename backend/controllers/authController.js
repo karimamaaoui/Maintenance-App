@@ -2,7 +2,7 @@ const User = require("../models/User");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const { randomString } = require("../utils/random");
-const { verifyEmail } = require("../utils/sendEmail");
+const { verifyEmail ,restPasswordEmail} = require("../utils/sendEmail");
 const userActive = require("../models/enums/userActive");
 
 const register = async (req, res) => {
@@ -217,6 +217,63 @@ const verify = async (req, res) => {
   }
 };
 
+const forgotPass = async (req, res) => {
+  const { email } = req.body;
+  try {
+    const oldUser = await User.findOne({ email });
+    if (!oldUser) return res.status(400).send("User not exist!");
+    const secret = process.env.ACCESS_TOKEN_SECRET + oldUser.password;
+    const token = jwt.sign({ email: oldUser.email, id: oldUser._id }, secret, {
+      expiresIn: '5m',
+    });
+    const link = `http://localhost:5173/reset/${oldUser._id}/${token}`;
+    restPasswordEmail(email, oldUser.firstname, link);
+    res.status(200).send(link);
+  } catch (error) {
+    // Handle errors appropriately
+    res.status(500).send("Internal Server Error");
+  }
+};
+
+
+const resetPassword = async (req, res) => {
+  try {
+    const { id, token } = req.params;
+    const { password } = req.body;
+
+  
+    // Decode the token to get the user's id
+    const accessToken = jwt.sign(
+      {
+        UserInfo: {
+          id: id,
+        },
+      },
+      process.env.ACCESS_TOKEN_SECRET,
+      { expiresIn: "15m" }
+    );
+    
+      try {
+        // Hash the new password
+        const hashedPassword = await bcrypt.hash(password, 10);
+
+        // Update the user's password in the database
+        await User.findByIdAndUpdate(id, { password: hashedPassword });
+
+        res.status(200).json({ message: "Password changed successfully",accessToken});
+      } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: "Internal server error" });
+      }
+    
+  } catch (error) {
+    console.error(error);
+    res.status(400).json({ error: "Error processing the request" });
+  }
+};
+
+
+
 module.exports = {
   register,
   login,
@@ -224,4 +281,6 @@ module.exports = {
   testCookies,
   logout,
   verify,
+  forgotPass,
+  resetPassword
 };
