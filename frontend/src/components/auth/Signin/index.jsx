@@ -1,26 +1,57 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import Navbar from "../../Navbar/navbar";
 import logo from "../../../assets/logo.png";
 import axios from "axios";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useCookies } from "react-cookie";
+import {jwtDecode} from 'jwt-decode';
+import {AuthContext} from '../../../contexts/AuthContext'
+
+
 
 const Signin = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const {} = useContext(AuthContext)
+  const [cookies, setCookie] = useCookies(["jwt"]);
+  const navigate = useNavigate();
+  const { auth, setAuth } = useContext(AuthContext);
+ //console.log("auth ", auth)
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    const data = {
+       const data = {
       email,
       password,
     };
-    console.log("login data", data);
 
     axios
       .post("http://localhost:5000/auth/login", data)
       .then((response) => {
-        console.log(response);
+      //  console.log(response);
+        setCookie("jwt", response.data.accessToken, { path: "/" });
+        // Decode the JWT to get user information
+        const decodedToken = jwtDecode(response.data.accessToken);
+
+        // Extract the user's role
+        const userRole = decodedToken.UserInfo.role;
+        console.log("User Role:", userRole);
+       // localStorage.setItem("role",userRole)
+        setAuth({
+          accessToken: response.data.accessToken,
+          email: response.data.email,
+          userId:decodedToken.UserInfo.id,
+          role: decodedToken.UserInfo.role
+        })
+      
+        if(userRole === "CLIENT"){
+          navigate ('/profile')
+        } else {  
+          if(userRole === "ADMIN"){
+           navigate('/accueil')
+          }
+        }
       })
       .catch((error) => {
         console.error(error);
