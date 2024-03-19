@@ -14,7 +14,7 @@ import Accueil from "./components/ClientComponent/Accueil/Accueil";
 import Profile from "./components/ClientComponent/Profile/Profile";
 import NoRouteFound from "./components/NoRoutes/NoRouteFound";
 import PrivateRoute from "./PrivateRoute";
-import { useCookies } from "react-cookie";
+import UpdateProfile from "./components/ClientComponent/Profile/UpdateProfile";
 
 const router = createBrowserRouter(
   createRoutesFromElements([
@@ -27,11 +27,13 @@ const router = createBrowserRouter(
       path="reset/:id/:token"
       element={<RestPassword />}
     />,
+    <Route key="updateProfile" path="updateProfile" element={<UpdateProfile />} />,
+
     <Route key="accueil" path="accueil" element={<Accueil />} />,
     <Route key="noroute" path="noroute" element={<NoRouteFound />} />,
-    <Route exact path="/profile" element={<PrivateRoute  roles={['CLIENT']}/>}>
-      <Route exact path="/profile" element={<Profile />} />
-    </Route>,
+    <Route exact path="/profile" element={<PrivateRoute roles={['CLIENT']} />}>
+    <Route exact path="/profile" element={<Profile />} />
+  </Route>
   ])
 );
 

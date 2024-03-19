@@ -1,8 +1,49 @@
-import React from "react";
-import { Link } from "react-router-dom"; 
+import React, { useContext, useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import Sidebar from "../Sidebar/Sidebar";
+import { AuthContext } from "../../../contexts/AuthContext";
+import axios from "axios";
+import { useCookies } from "react-cookie";
 
 function Profile() {
+  const { auth } = useContext(AuthContext); // Get auth from context
+  const [userProfile, setUserProfile] = useState(null);
+  const [cookies] = useCookies(["jwt"]); // Add this line to get cookies
+ 
+  useEffect(() => {
+    const getProfile = async () => {
+      // Check if auth.accessToken and cookies.jwt are available
+      if (!auth.accessToken || !cookies.jwt) {
+        console.error('Access token or cookie is missing',auth.accessToken);
+        return;
+      }
+      
+      try {
+        const response = await axios.get(
+          'http://localhost:5000/users/getuser',
+          {
+            headers: {
+              Authorization: `Bearer ${auth.accessToken}`,
+            },
+          }
+        );
+  
+        // Assuming your API response contains profile information
+        const fetchedUserProfile = response.data;
+      //  console.log('Fetched User Profile:', fetchedUserProfile);
+  
+        // Set the user profile data in state
+        setUserProfile(fetchedUserProfile);
+      } catch (error) {
+        console.error('Error fetching user profile:', error);
+        // Handle errors accordingly
+      }
+    };
+  
+    // Call the getProfile function when the component mounts
+    getProfile();
+  }, [auth.accessToken, cookies.jwt]);
+  
   return (
     <div className="flex">
       <Sidebar />
@@ -24,35 +65,32 @@ function Profile() {
                   <div class="py-3 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
                     <dt class="text-sm font-medium text-gray-500">Full name</dt>
                     <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-                      John Doe
+                    {userProfile?.firstname && userProfile?.lastname ? `${userProfile.firstname} ${userProfile.lastname}` : "No Name Found"}
                     </dd>
                   </div>
                   <div class="py-3 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-                    <dt class="text-sm font-medium text-gray-500">Email address</dt>
+                    <dt class="text-sm font-medium text-gray-500">
+                      Email address
+                    </dt>
                     <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-                      johndoe@example.com
+                    {userProfile?.email ||"No Name Found"}
                     </dd>
                   </div>
                   <div class="py-3 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-                    <dt class="text-sm font-medium text-gray-500">Phone number</dt>
+                    <dt class="text-sm font-medium text-gray-500">
+                      Phone number
+                    </dt>
                     <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-                      (123) 456-7890
+                      (+216) {userProfile?.phone ||"No Phone Found"}
+
                     </dd>
                   </div>
-                  <div class="py-3 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-                    <dt class="text-sm font-medium text-gray-500">Address</dt>
-                    <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-                      123 Main St
-                      <br />
-                      Anytown, USA 12345
-                    </dd>
-                  </div>
-                </dl>
+                 </dl>
               </div>
-                      </dl>
+            </dl>
           </div>
           <div className="px-4 py-5 sm:px-6">
-            <Link to="/update-profile">
+            <Link to="/updateProfile">
               <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
                 Update Profile
               </button>

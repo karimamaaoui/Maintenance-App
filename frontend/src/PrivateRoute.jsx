@@ -1,21 +1,26 @@
 // PrivateRoute.jsx
-import React, { useContext } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { Navigate, Outlet } from 'react-router-dom';
-import { AuthContext } from './contexts/AuthContext'; //
-import { useCookies } from 'react-cookie';
+import { AuthContext } from './contexts/AuthContext';
 
 const PrivateRoute = ({ roles, ...rest }) => {
   const { auth } = useContext(AuthContext);
-  const [cookies] = useCookies(["jwt"]);
-  const isLoggedIn = !!cookies.jwt && auth.token;
+  const [loading, setLoading] = useState(true);
 
-  //console.log("Role from AuthContext:", auth.role);
-  if (isLoggedIn) {
-    return <Navigate to="/login" />;
+  useEffect(() => {
+    // Check if the auth object is available and has the necessary properties
+    if (auth && auth.accessToken) {
+      setLoading(false);
+    }
+  }, [auth]);
+
+  if (loading) {
+    // You might want to render a loading spinner or something here
+    return null;
   }
+
   // Check if the user's role is included in the allowed roles array
   const isAuthorized = roles.includes(auth.role);
-  //console.log("isAuthorized",isAuthorized)
 
   return isAuthorized ? <Outlet {...rest} /> : <Navigate to="/login" />;
 };

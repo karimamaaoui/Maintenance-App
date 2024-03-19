@@ -29,15 +29,12 @@ const Signin = () => {
     axios
       .post("http://localhost:5000/auth/login", data)
       .then((response) => {
-      //  console.log(response);
         setCookie("jwt", response.data.accessToken, { path: "/" });
         // Decode the JWT to get user information
         const decodedToken = jwtDecode(response.data.accessToken);
 
         // Extract the user's role
         const userRole = decodedToken.UserInfo.role;
-        console.log("User Role:", userRole);
-       // localStorage.setItem("role",userRole)
         setAuth({
           accessToken: response.data.accessToken,
           email: response.data.email,
