@@ -6,7 +6,7 @@ const { verifyEmail ,restPasswordEmail} = require("../utils/sendEmail");
 const userActive = require("../models/enums/userActive");
 
 const register = async (req, res) => {
-  const { firstname, lastname, email, password } = req.body;
+  const { firstname, lastname, email, password,role } = req.body;
   // Check if all required fields are provided
   if (!firstname || !lastname || !email || !password) {
     return res.status(400).json({ message: "All fields are required" });
@@ -29,6 +29,7 @@ const register = async (req, res) => {
       lastname,
       email,
       password: hashedPassword,
+       role: role || undefined,
       verificationCode: codeVerification,
     });
     const link = `http://localhost:5000/auth/verify?code=${codeVerification}`;
@@ -38,6 +39,7 @@ const register = async (req, res) => {
       {
         UserInfo: {
           id: user._id,
+          role: user.role
         },
       },
       process.env.ACCESS_TOKEN_SECRET,
@@ -49,6 +51,8 @@ const register = async (req, res) => {
       {
         UserInfo: {
           id: user._id,
+          role: user.role
+
         },
       },
       process.env.REFRESH_TOKEN_SECRET,
@@ -67,6 +71,7 @@ const register = async (req, res) => {
       email: user.email,
       firstname: user.firstname,
       lastname: user.lastname,
+      
     });
   } catch (error) {
     console.error("Registration error:", error);
@@ -100,6 +105,8 @@ const login = async (req, res) => {
       {
         UserInfo: {
           id: foundUser._id,
+          role: foundUser.role
+
         },
       },
       process.env.ACCESS_TOKEN_SECRET,
@@ -111,6 +118,8 @@ const login = async (req, res) => {
       {
         UserInfo: {
           id: foundUser._id,
+          role: foundUser.role
+
         },
       },
       process.env.REFRESH_TOKEN_SECRET,
@@ -119,11 +128,12 @@ const login = async (req, res) => {
 
     res.cookie("jwt", refreshToken, {
       httpOnly: true, //accessible only by web server not js can access
-      secure: false, //accessible https
+      secure: false, //not accessible https
       sameSite: "None", //send to the domain that you deploy your app cross-site cookie
       maxAge: 7 * 24 * 60 * 60 * 1000, //expire date of the cookie  1000 1s * 60s * 60m * 24 hours * 7 numbre of days
     });
 
+   
     res.status(201).json({
       accessToken,
       email: foundUser.email,
@@ -133,10 +143,7 @@ const login = async (req, res) => {
     res.status(500).json({ message: "Internal server error : Login Error" });
   }
 };
-const testCookies = (req, res) => {
-  const cookies = req.cookies;
-  res.json({ cookies });
-};
+
 
 const refresh = (req, res) => {
   const cookies = req.cookies;
@@ -170,6 +177,7 @@ const refresh = (req, res) => {
           {
             UserInfo: {
               id: foundUser._id,
+              role : foundUser.role
             },
           },
           process.env.ACCESS_TOKEN_SECRET,
@@ -278,7 +286,6 @@ module.exports = {
   register,
   login,
   refresh,
-  testCookies,
   logout,
   verify,
   forgotPass,

@@ -17,6 +17,8 @@ connectDB();
 
 //security of the server 
 app.use(cors(corsOptions));
+app.use(cors());
+
 app.use(cookieParser())
 app.use(express.json());
 

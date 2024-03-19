@@ -14,6 +14,7 @@ import Accueil from "./components/ClientComponent/Accueil/Accueil";
 import Profile from "./components/ClientComponent/Profile/Profile";
 import NoRouteFound from "./components/NoRoutes/NoRouteFound";
 import PrivateRoute from "./PrivateRoute";
+import { useCookies } from "react-cookie";
 
 const router = createBrowserRouter(
   createRoutesFromElements([
