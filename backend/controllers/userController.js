@@ -1,5 +1,4 @@
 const User = require ('../models/User')
-const jwt = require("jsonwebtoken");
 
 const getAllUsers = async (req,res)=>{
     //select users without password
@@ -26,26 +25,8 @@ const getUser = async (req, res) => {
     return res.status(500).json({ message: "Internal server error" });
   }
 };
-/*
-const updateUser = async (req, res) => {
-  try {
-      const { newData } = req.body;
-      const userId = req.user;
-      console.log("user from req",req.user)
-      const updatedUser = await User.findByIdAndUpdate(userId, newData, { new: true });
-      console.log("updatedUser ",updatedUser)
 
-      if (!updatedUser) {
-          return res.status(404).json({ message: "Utilisateur non trouvé" });
-      }
-      res.status(200).json(updatedUser);
-  } catch (error) {
-      console.error(error);
-      res.status(500).json({ message: "Erreur lors de la mise à jour de l'utilisateur" });
-  }
-};*/
-
-const updateUser = async (req, res) => {
+const updateProfile = async (req, res) => {
   try {
       const { firstname,lastname,email } = req.body;
 //      console.log("req.body from update user", req.body)
@@ -70,5 +51,5 @@ const updateUser = async (req, res) => {
 module.exports ={
     getAllUsers,
     getUser,
-    updateUser
+    updateProfile
 }

@@ -27,7 +27,7 @@ router.route("/").get((req, res) => {
   }
   });
 
-  router.put('/update', usersController.updateUser);
+  router.put('/update', usersController.updateProfile);
 
   
 module.exports=router
