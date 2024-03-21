@@ -15,8 +15,9 @@ const verifyRole = (req, res, next) => {
 
   const decodedToken = jwt.decode(token);
 
- // console.log("decoded ", decodedToken);
-  
+ console.log("decoded ", decodedToken);
+  console.log("role ",decodedToken.UserInfo.role)
+ 
   if (decodedToken.UserInfo.role === "ADMIN") {
     req.userRole = "ADMIN";
     next();

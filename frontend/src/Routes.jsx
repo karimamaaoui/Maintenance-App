@@ -31,7 +31,7 @@ const router = createBrowserRouter(
 
     <Route key="accueil" path="accueil" element={<Accueil />} />,
     <Route key="noroute" path="noroute" element={<NoRouteFound />} />,
-    <Route exact path="/profile" element={<PrivateRoute roles={['CLIENT']} />}>
+    <Route exact path="/profile" element={<PrivateRoute roles={['CLIENT','ADMIN']} />}>
     <Route exact path="/profile" element={<Profile />} />
   </Route>
   ])
