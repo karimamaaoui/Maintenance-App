@@ -29,5 +29,40 @@ router.route("/").get((req, res) => {
 
   router.put('/update', usersController.updateProfile);
 
+
+  
+  router.route("/addnewuser").post((req, res) => {
+    if (req.userRole === "ADMIN") {
+      // Only ADMIN can change  state of demand
+      usersController.createUser(req,res);
+    } else {
+      // Handle other scenarios or send an appropriate response
+      res.status(403).json("Unauthorized: Invalid role");
+    }
+  });
+
+
+  
+  router.route("/update-user/:id").put((req, res) => {
+    if (req.userRole === "ADMIN") {
+      // Only ADMIN can change  state of demand
+      usersController.updateUser(req,res);
+    } else {
+      // Handle other scenarios or send an appropriate response
+      res.status(403).json("Unauthorized: Invalid role");
+    }
+  });
+
+
+  router.route("/delete-user/:id").delete((req, res) => {
+    if (req.userRole === "ADMIN") {
+      // Only ADMIN can change  state of demand
+      usersController.deleteUser(req,res);
+    } else {
+      // Handle other scenarios or send an appropriate response
+      res.status(403).json("Unauthorized: Invalid role");
+    }
+  });
+
   
 module.exports=router

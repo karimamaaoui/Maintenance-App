@@ -1,4 +1,7 @@
 const User = require ('../models/User')
+const bcrypt = require("bcrypt");
+const { randomString } = require("../utils/random");
+const { verifyEmail } = require("../utils/sendEmail");
 
 const getAllUsers = async (req,res)=>{
     //select users without password
@@ -47,9 +50,81 @@ const updateProfile = async (req, res) => {
   }
 };
 
+const createUser = async (req, res) => {
+
+  const { firstname, lastname, email, password,role } = req.body;
+  // Check if all required fields are provided
+  if (!firstname || !lastname || !email || !password) {
+    return res.status(400).json({ message: "All fields are required" });
+  }
+
+  try {
+
+    const foundUser = await User.findOne({ email: email }).exec();
+    if (foundUser) {
+      return res.status(401).json({ message: "User email already exists" });
+    }
+
+    // Hash the provided password
+    const hashedPassword = await bcrypt.hash(password, 10);
+    const codeVerification = randomString(20);
+
+    // Create a new user in the database
+    const user = await User.create({
+      firstname,
+      lastname,
+      email,
+      password: hashedPassword,
+       role: role ,
+      verificationCode: codeVerification,
+    });
+    const link = `http://localhost:5000/auth/verify?code=${codeVerification}`;
+    verifyEmail(email, firstname, link);
+    
+
+
+    const newUser = await user.save();
+    res.status(201).json(newUser);
+  } catch (err) {
+    res.status(400).json({message : err.message || "Some error occurred while creating a create operation"
+  });
+  }
+};
+
+const updateUser = async (req, res) => {
+  try {
+    const user = await User.findById(req.params.id);
+    if (!user) return res.status(404).json({ message: 'User not found' });
+
+    if (req.body.firstname) user.firstname = req.body.firstname;
+    if (req.body.lastname) user.lastname = req.body.lastname;
+
+    if (req.body.email) user.email = req.body.email;
+    if (req.body.password) user.password = req.body.password;
+    if (req.body.role) user.role = req.body.role;
+
+    const updatedUser = await user.save();
+   
+    res.json(updatedUser);
+  } catch (err) {
+    res.status(404).json({ message : `Cannot Update user with ${id}.`})
+  }
+};
+
+const deleteUser = async (req, res) => {
+  try {
+    await User.findByIdAndDelete(req.params.id);
+    res.json({ message: 'User deleted' });
+  } catch (err) {
+    res.status(500).json({ message: "Could not delete User with id=" + id });
+  }
+};
 
 module.exports ={
     getAllUsers,
     getUser,
-    updateProfile
+    updateProfile,
+    createUser,
+    updateUser,
+    deleteUser
 }
