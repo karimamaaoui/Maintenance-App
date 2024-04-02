@@ -59,7 +59,20 @@ const updateDemandState = async (req, res) => {
   }
 };
 
+
+const getDemand = async (req, res) => {
+  try {
+    const demands = await DemandAdd.find({ state: 'IN PROGRESS' });
+    res.json(demands);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: 'Server Error' });
+  }
+};
+
+
 module.exports = {
   sendDemand,
   updateDemandState,
+  getDemand
 };

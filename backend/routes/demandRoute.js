@@ -19,6 +19,18 @@ router.route("/changestate/:id").put((req, res) => {
   });
 
 
+  
+  router.route("/suivi").get((req, res) => {
+    if (req.userRole === "ADMIN") {
+      // Only ADMIN can change  state of demand
+      DemandController.getDemand(req,res);
+    } else {
+      // Handle other scenarios or send an appropriate response
+      res.status(403).json("Unauthorized: Invalid role");
+    }
+  });
+
+
 
 
 module.exports=router;

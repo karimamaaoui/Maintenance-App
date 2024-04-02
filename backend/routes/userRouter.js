@@ -64,5 +64,15 @@ router.route("/").get((req, res) => {
     }
   });
 
+  router.route("/get-user/:id").get((req, res) => {
+    if (req.userRole === "ADMIN") {
+      // Only ADMIN can change  state of demand
+      usersController.getUserById(req,res);
+    } else {
+      // Handle other scenarios or send an appropriate response
+      res.status(403).json("Unauthorized: Invalid role");
+    }
+  });
+
   
 module.exports=router
