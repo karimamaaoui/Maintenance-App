@@ -46,7 +46,7 @@ const Signin = () => {
           navigate ('/profile')
         } else {  
           if(userRole === "ADMIN"){
-           navigate('/accueil')
+           navigate('/dashboard')
           }
         }
       })
