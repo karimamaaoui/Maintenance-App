@@ -2,6 +2,7 @@
 import React, { createContext, useEffect, useState } from "react";
 import { useCookies } from "react-cookie";
 import { jwtDecode } from 'jwt-decode';
+import { Navigate } from "react-router-dom";
 
 export const AuthContext = createContext({});
 
@@ -44,6 +45,8 @@ export const AuthProvider = ({ children }) => {
             userId: '',
             role: '',
           });
+          return <Navigate to="/login" />;
+
         }
       } else {
         // Clear the auth state if there is no token

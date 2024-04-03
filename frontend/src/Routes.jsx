@@ -6,7 +6,7 @@ import {
   Route,
 } from "react-router-dom";
 
-import Home from "./components/Home/index";
+import Home from "./components/LandingPage/Home/index";
 import Signin from "./components/auth/Signin/index";
 import Signup from "./components/auth/SignUp/index";
 import ForgotPassword from "./components/auth/forgotPassword/ForgetPassword";
@@ -28,7 +28,9 @@ import EditUser from "./components/Admin/dashboard/EditUser"
 import Layout from "./components/Admin/widgets/layout/Layout"
 import DemandAdd from "./components/Admin/dashboard/demand-add";
 import EditDemandAdd from "./components/Admin/dashboard/editDemandAdd";
-
+import LayoutClient from "./components/ClientComponent/LayoutClient";
+import SendDemand from "./components/ClientComponent/Demands/SendDemand";
+import ListDemand from "./components/ClientComponent/Demands/ListDemand"
 
 
 const router = createBrowserRouter(
@@ -45,15 +47,24 @@ const router = createBrowserRouter(
     <Route path='/demand-add' element={<Layout><DemandAdd /> </Layout> } />,
     <Route path='/edit-demand/:id' element={<Layout><EditDemandAdd /> </Layout> } />,
 
+    
+
     <Route path='/adduser' element={<Layout><AddUser /> </Layout> } />,
     <Route exact path="/edit/:id" element={<Layout><EditUser/> </Layout>} /> ,
 
     <Route key="forgot" path="forgot" element={<ForgotPassword />} />,
     <Route key="reset" path="reset/:id/:token" element={<RestPassword />} />,
     <Route key="updateProfile" path="updateProfile" element={<UpdateProfile />} />,
-    <Route key="accueil" path="accueil" element={<Accueil />} />,
+    <Route path='/send-demand' element={<LayoutClient><SendDemand /> </LayoutClient> } />,
 
-    <Route key="profile" exact path="/profile" element={<Profile />} />,
+    <Route path='/list-demand' element={<LayoutClient><ListDemand /> </LayoutClient> } />,
+
+
+
+    <Route path='/accueil' element={<LayoutClient><Accueil /> </LayoutClient> } />,
+    <Route key="privateaccueil" exact path="/accueil" element={<PrivateRoute roles={['CLIENT']} />} />,
+
+    <Route key="profile" exact path="/profile" element={<LayoutClient><Profile /> </LayoutClient> } />,
     <Route key="privateProfile" exact path="/profile" element={<PrivateRoute roles={['CLIENT','ADMIN']} />} />,
     <Route key="notFound" path="/not-found" element={<NoRouteFound />} />,
     <Route key="fallback" path="*" element={<Navigate to="/not-found" />} />,

@@ -26,9 +26,7 @@ export function DashboardNavbar() {
   const [layout, page] = pathname.split("/").filter((el) => el !== "");
 
   return (
-    <Navbar
-     
-    >
+    <Navbar>
       <div className="flex flex-col-reverse justify-between gap-6 md:flex-row md:items-center">
         <div className="capitalize">
             <Link to={`/${layout}`}>

@@ -43,7 +43,7 @@ const Signin = () => {
         })
       
         if(userRole === "CLIENT"){
-          navigate ('/profile')
+          navigate ('/accueil')
         } else {  
           if(userRole === "ADMIN"){
            navigate('/dashboard')

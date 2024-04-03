@@ -3,7 +3,7 @@ import axios from "axios";
 import { useNavigate, useParams } from "react-router-dom";
 import { AuthContext } from "../../../contexts/AuthContext";
 import {
-    Button,
+  Button,
   Card,
   CardBody,
   CardHeader,
@@ -34,8 +34,8 @@ function EditDemandAdd() {
         );
         setDemand(response.data);
         console.log("get demand by id", response.data);
-        setSelectedState(response.data.state);
-      } catch (error) {
+        setState(response.data.state);
+          } catch (error) {
         console.error("Error fetching demand:", error);
       }
     };
@@ -43,18 +43,16 @@ function EditDemandAdd() {
     fetchDemand();
   }, [id]);
 
-
-
   const handleSubmit = async (e) => {
     e.preventDefault();
     const updatedDemand = {
-     state };
+      state,
+    };
     // Send a PUT request to update the demand data
     try {
       const response = await axios.put(
         `http://localhost:5000/demand/changestate/${id}`,
-        updatedDemand
-        ,
+        updatedDemand,
         {
           headers: {
             Authorization: `Bearer ${auth.accessToken}`,
@@ -63,7 +61,7 @@ function EditDemandAdd() {
       );
       console.log("demand updated successfully:", updatedDemand);
       toast.success("demand Updated Successfully");
-      navigate("/demand-add")
+      navigate("/demand-add");
     } catch (error) {
       console.error("Error updating user:", error);
     }
@@ -136,16 +134,20 @@ function EditDemandAdd() {
 
                 <Select
                   label="Change State"
-                  value={state} onChange={(value) => setState(value)}
+                  value={state}
+                  onChange={(value) => setState(value)}
                 >
                   <Option value="IN PROGRESS">In Progress</Option>
                   <Option value="ACCEPTED">Accepted</Option>
                   <Option value="REFUSED">Refused</Option>
                 </Select>
-                <Button className="mt-6 w-[12rem] bg-blue" fullWidth type="submit">
-        Save Changes
-
-        </Button>
+                <Button
+                  className="mt-6 w-[12rem] bg-blue"
+                  fullWidth
+                  type="submit"
+                >
+                  Save Changes
+                </Button>
               </form>
             </div>
           </div>
