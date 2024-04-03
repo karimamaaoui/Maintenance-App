@@ -26,6 +26,19 @@ const sendDemand = async (req, res) => {
   }
 };
 
+
+const getDemandByClient = async (req, res) => {
+  try {
+    const clientId = req.user; 
+    const demands = await DemandAdd.find({ client: clientId }).populate('client', 'email');
+    res.json(demands);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: 'Server Error' });
+  }
+};
+
+
 const updateDemandState = async (req, res) => {
   try {
     const { state } = req.body;
@@ -62,8 +75,22 @@ const updateDemandState = async (req, res) => {
 
 const getDemand = async (req, res) => {
   try {
-    const demands = await DemandAdd.find({ state: 'IN PROGRESS' });
+    const demands = await DemandAdd.find({ state: 'IN PROGRESS' }).populate('client', 'email');
     res.json(demands);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: 'Server Error' });
+  }
+};
+
+
+const getDemandById = async (req, res) => {
+  try {
+    const demand = await DemandAdd.findById(req.params.id).populate('client', 'email');
+    if (!demand) {
+      return res.status(404).json({ message: 'Demand not found' });
+    }
+    res.json(demand);
   } catch (err) {
     console.error(err);
     res.status(500).json({ message: 'Server Error' });
@@ -74,5 +101,7 @@ const getDemand = async (req, res) => {
 module.exports = {
   sendDemand,
   updateDemandState,
-  getDemand
+  getDemand,
+  getDemandById,
+  getDemandByClient
 };
