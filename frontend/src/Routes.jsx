@@ -24,10 +24,10 @@ import ProfileAdmin from "./components/Admin/pages/dashboard/profile";
 import ProfileKarima from "./components/Admin/widgets/layout/pages/ProfileKarima"
 import DashboardKarima from "./components/Admin/widgets/layout/pages/DashboardKarima"
 import CourseKarima from "./components/Admin/widgets/layout/pages/CourseKarima"
-import HomeKarima from "./components/Admin/widgets/layout/pages/HomeKarima"
-import LoginKarima from "./components/Admin/widgets/layout/pages/LoginKarima"
-
+import EditUser from "./components/Admin/dashboard/EditUser"
 import Layout from "./components/Admin/widgets/layout/Layout"
+import DemandAdd from "./components/Admin/dashboard/demand-add";
+import EditDemandAdd from "./components/Admin/dashboard/editDemandAdd";
 
 
 
@@ -36,16 +36,17 @@ const router = createBrowserRouter(
     <Route key="home" path="/" element={<Home />} />,
     <Route key="login" path="login" element={<Signin />} />,
     <Route key="register" path="register" element={<Signup />} />,
-  //  <Route key="dashboard" path="dashboard" element={<DashboardAdmin />} />,
     <Route key="admin" path="admin" element={<HomeAdmin />} />,
     <Route key="profileAdmin" path="profileAdmin" element={<ProfileAdmin />} />,
 
     <Route path='/dashboard' element={<Layout><DashboardKarima /></Layout>} />,
     <Route path='/coursekarima' element={<Layout><CourseKarima /> </Layout>} />,
     <Route path='/profilekarima' element={<Layout><ProfileKarima /> </Layout> } />,
-    <Route path='/loginkarima' element={<Layout><LoginKarima /> </Layout> } />,
-    <Route path='/adduser' element={<Layout><AddUser /> </Layout> } />,
+    <Route path='/demand-add' element={<Layout><DemandAdd /> </Layout> } />,
+    <Route path='/edit-demand/:id' element={<Layout><EditDemandAdd /> </Layout> } />,
 
+    <Route path='/adduser' element={<Layout><AddUser /> </Layout> } />,
+    <Route exact path="/edit/:id" element={<Layout><EditUser/> </Layout>} /> ,
 
     <Route key="forgot" path="forgot" element={<ForgotPassword />} />,
     <Route key="reset" path="reset/:id/:token" element={<RestPassword />} />,

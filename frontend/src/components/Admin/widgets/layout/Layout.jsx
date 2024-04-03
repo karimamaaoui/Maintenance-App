@@ -9,7 +9,6 @@ const Layout = ({ children }) => {
                 <Sidenav />
                 <div className='grow'>
                     <Navbar />
-                    {console.log("chidlren from layout",children)}
                     <div className='m-5'>{children}</div>
                 </div>
             </div>

@@ -11,9 +11,11 @@ import {
 } from "@material-tailwind/react";
 import { AuthContext } from "../../../contexts/AuthContext";
 import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 
 function AddUser() {
   const { auth } = useContext(AuthContext);
+  const navigate = useNavigate();
 
   const [selectedRole, setSelectedRole] = useState("");
   const [firstname, setFirstName] = useState("");
@@ -59,13 +61,8 @@ function AddUser() {
 
       // Handle success
       console.log("User added successfully:", response.data);
-
-      // Clear the form fields
-      setFirstName("");
-      setLastName("");
-      setEmail("");
-      setPassword("");
-      setSelectedRole("");
+      navigate("/dashboard")
+    
     } catch (error) {
       // Handle error
       console.error("Error adding user:", error);
@@ -76,7 +73,7 @@ function AddUser() {
     <div className="flex justify-center items-center ">
       <Card color="transparent" shadow={false}>
         <Typography color="gray" className="mt-1 font-normal">
-          Nice to meet you! Enter your details to register.
+          Enter user details :
         </Typography>
 
         <form
@@ -146,11 +143,12 @@ function AddUser() {
               value={selectedRole}
               onChange={handleRoleChange}  >
               <Option value="ADMIN">Admin</Option>
+              <Option value="CLIENT">Client</Option>
               <Option value="TECHNICIEN">Technician</Option>
             </Select>
           </div>
 
-          <Button type="submit" className="mt-6" fullWidth>
+          <Button type="submit" className="mt-6 bg-blue" fullWidth>
             Add
           </Button>
         </form>

@@ -11,7 +11,8 @@ import axios from "axios";
 import { Chip } from "@material-tailwind/react";
 import { useCookies } from "react-cookie";
 import { Link } from "react-router-dom";
-
+import { HiPencilAlt, HiPlus, HiTrash } from "react-icons/hi";
+import { toast } from "react-toastify";
 export function Tables() {
   const [usersTableData, setUsersTableData] = useState([]);
   const { auth } = useContext(AuthContext);
@@ -42,6 +43,8 @@ export function Tables() {
           Authorization: `Bearer ${auth.accessToken}`,
         },
       });
+      toast.warning("User Deleted Successfully");
+
       setUsersTableData(prevData => prevData.filter(user => user._id !== id));
 
       // Handle the response
@@ -69,8 +72,8 @@ export function Tables() {
               Users Table
             </Typography>
             <Link to="/adduser">
-              <IconButton color="green" >
-                Add 
+              <IconButton color="black" >
+                <HiPlus/> 
               </IconButton>
             </Link>
           </div>
@@ -132,11 +135,13 @@ export function Tables() {
                       </td>
                       <td className="py-3 px-5 border-b border-blue-gray-50">
                         <Chip
-                          variant="gradient"
+                          variant="ghost"
                           color={isActive === "ACTIVE" ? "green" : "red"}
                           value={isActive === "ACTIVE" ? "ACTIVE" : "INACTIVE"}
                           className="py-0.5 px-2 text-[11px] font-medium w-fit"
+                          
                         />
+                
                       </td>
                       <td className="py-3 px-5 border-b border-blue-gray-50">
                         <Typography className="text-xs font-semibold text-blue-gray-600">
@@ -148,12 +153,13 @@ export function Tables() {
                           to={`/edit/${_id}`}
                           className="text-xs font-semibold text-blue-gray-600"
                         >
-                          <IconButton color="red">
-                            Edit
+                          <IconButton color="indigo">
+                          <HiPencilAlt />
+
                           </IconButton>
                         </Link>
-                        <IconButton color="amber" onClick={() => handleDeleteClick(_id)}>
-                          Delete
+                        <IconButton color="blue-gray" onClick={() => handleDeleteClick(_id)}>
+                          <HiTrash/>
                         </IconButton>
                       </td>
                     </tr>

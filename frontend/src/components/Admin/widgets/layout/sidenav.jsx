@@ -4,7 +4,7 @@ import { BsArrowLeftCircle } from 'react-icons/bs';
 import { AiFillPieChart } from 'react-icons/ai';
 import { SiFuturelearn } from 'react-icons/si';
 import { SiOpenaccess } from 'react-icons/si';
-import { CgProfile } from 'react-icons/cg';
+import { CgList, CgProfile } from 'react-icons/cg';
 
 const Sidenav = () => {
   const [open, setOpen] = useState(true);
@@ -15,15 +15,14 @@ const Sidenav = () => {
     { title: 'Dashboard', path: '/dashboard', src: <AiFillPieChart /> },
     {
       title: 'Users',
-      path: '/coursekarima',
+      path: '/dashboard',
       src: <SiFuturelearn />,
-      dropdown: [
-        { title: 'Add New User', path: '/adduser' },
-        { title: 'Users List', path: '/dashboard' }
-      ]
+     
     },
+    { title: 'Demand Add', path: '/demand-add', src: <CgList /> },
     { title: 'Profile', path: '/profilekarima', src: <CgProfile /> },
-    { title: 'Signin', path: '/loginkarima', src: <SiOpenaccess />, gap: 'true' },
+
+    { title: 'Logout', path: '/demand-add', src: <SiOpenaccess />, gap: 'true' },
   ];
 
   const toggleDropdown = () => {
@@ -48,7 +47,7 @@ const Sidenav = () => {
             <img src='' alt='' className='pl-2' />
             {open && (
               <span className='text-xl font-medium whitespace-nowrap dark:text-white'>
-                Goal Quest
+                Maintenance App
               </span>
             )}
           </div>
@@ -68,22 +67,7 @@ const Sidenav = () => {
                     <span className='text-2xl'>{menu.src}</span>
                     <span>{menu.title}</span>
                   </span>
-                  {showDropdown && (
-                    <ul className='ml-4'>
-                      {menu.dropdown.map((item, idx) => (
-                        <Link to={item.path} key={idx}>
-                          <li
-                            className={`flex items-center gap-x-6 p-2 rounded-lg cursor-pointer dark:text-white hover:bg-gray-200 dark:hover:bg-gray-700 ${
-                              location.pathname === item.path && 'bg-gray-200 dark:bg-gray-700'
-                            }`}
-                          >
-                            <span>{item.title}</span>
-                          </li>
-                        </Link>
-                      ))}
-                    </ul>
-                  )}
-                </li>
+                 </li>
               ) : (
                 <Link to={menu.path}>
                   <li
