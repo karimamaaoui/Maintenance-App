@@ -2,11 +2,13 @@ import React, { useState } from "react";
 import Navbar from "../../Navbar/navbar";
 import logo from "../../../assets/logo.png";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 const Signup = () => {
   const [firstname, setFirstname] = useState("");
   const [lastname, setLastname] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const navigate = useNavigate();
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -26,6 +28,8 @@ const Signup = () => {
         if (response.data.status) {
           alert("hello " + response.data);
         }
+
+        navigate ('/accueil')
       })
       .catch((error) => {
         console.error(error);

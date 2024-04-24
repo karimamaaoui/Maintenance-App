@@ -10,12 +10,25 @@ import {
   Typography,
 } from "@material-tailwind/react";
 import { AuthContext } from "../../../contexts/AuthContext";
+import { useNavigate } from "react-router-dom";
 
 function ListDemand() {
   const [demandTableData, setDemandTableData] = useState([]);
   const { auth } = useContext(AuthContext);
   const [cookies] = useCookies(["jwt"]);
+  const navigate = useNavigate();
   useEffect(() => {
+    if (!auth.accessToken || !cookies.jwt) {
+      if (!auth.accessToken) {
+        console.error('Access token is missing');
+      }
+      if (!cookies.jwt) {
+        console.error('JWT cookie is missing');
+      }
+      navigate('/login', { replace: true });
+      return;
+    }
+
     const fetchData = async () => {
       try {
         const response = await axios.get(
@@ -35,7 +48,7 @@ function ListDemand() {
     };
 
     fetchData();
-  }, [auth.accessToken, cookies.jwt]);
+}, [auth.accessToken, cookies.jwt, navigate]);
 
   return (
     <div className="flex-grow p-4">

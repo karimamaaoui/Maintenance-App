@@ -55,17 +55,20 @@ const router = createBrowserRouter(
     <Route key="forgot" path="forgot" element={<ForgotPassword />} />,
     <Route key="reset" path="reset/:id/:token" element={<RestPassword />} />,
     <Route key="updateProfile" path="updateProfile" element={<UpdateProfile />} />,
-    <Route path='/send-demand' element={<LayoutClient><SendDemand /> </LayoutClient> } />,
+   
+   
+<Route key="send-demand-page" exact path='/send-demand' element={<LayoutClient><SendDemand /> </LayoutClient> } />,
+<Route key="private-send-demand" exact path="/send-demand" element={<PrivateRoute roles={['CLIENT','ADMIN']} />} />,
+
+
 
     <Route path='/list-demand' element={<LayoutClient><ListDemand /> </LayoutClient> } />,
 
 
 
-    <Route path='/accueil' element={<LayoutClient><Accueil /> </LayoutClient> } />,
-    <Route key="privateaccueil" exact path="/accueil" element={<PrivateRoute roles={['CLIENT']} />} />,
+    <Route key="accueil" exact path="/accueil" element={<LayoutClient><Accueil /> </LayoutClient> } />,
+    <Route key="accueil" exact path="/accueil" element={<PrivateRoute roles={['CLIENT','ADMIN']} />} />,
 
-    <Route key="profile" exact path="/profile" element={<LayoutClient><Profile /> </LayoutClient> } />,
-    <Route key="privateProfile" exact path="/profile" element={<PrivateRoute roles={['CLIENT','ADMIN']} />} />,
     <Route key="notFound" path="/not-found" element={<NoRouteFound />} />,
     <Route key="fallback" path="*" element={<Navigate to="/not-found" />} />,
   ])

@@ -1,4 +1,4 @@
-import { useLocation, Link } from "react-router-dom";
+import { useLocation, Link, useNavigate } from "react-router-dom";
 import {
   Navbar,
   Typography,
@@ -20,19 +20,30 @@ import {
   CreditCardIcon,
   Bars3Icon,
 } from "@heroicons/react/24/solid";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import axios from "axios";
+import { useCookies } from "react-cookie";
+import { AuthContext } from "../../../../contexts/AuthContext";
 
 export function DashboardNavbar() {
   const { pathname } = useLocation();
   const [layout, page] = pathname.split("/").filter((el) => el !== "");
   const [notifications, setNotifications] = useState([]);
+  const { auth } = useContext(AuthContext);
+  const navigate = useNavigate();
+
+  const [cookies, setCookie, removeCookie] = useCookies(["jwt"]);
+
 
   useEffect(() => {
     const fetchNotifications = async () => {
       try {
         const response = await axios.get(
-          "http://localhost:5000/notif/notifications"
+          "http://localhost:5000/notif/notifications", {
+            headers: {
+              Authorization: `Bearer ${auth.accessToken}`,
+            },
+          }
         );
         console.log("notification ", response.data);
         setNotifications(response.data);
@@ -45,8 +56,29 @@ export function DashboardNavbar() {
     const intervalId = setInterval(fetchNotifications, 3000);
 
     return () => clearInterval(intervalId);
-  }, []);
+  }, [auth.accessToken, cookies.jwt]);
+  
 
+  const handleLogout = async () => {
+    try {
+        const response = await axios.post(
+            "http://localhost:5000/auth/logout"
+        );
+        console.log("response",response)
+
+        // Remove JWT token from cookies
+        removeCookie("jwt", { path: "/" });
+
+      navigate ('/login')
+        // Optionally, clear any user-related data from state or local storage
+    } catch (error) {
+        console.error("Error logging out:", error);
+        // Handle logout error
+    }
+};
+
+
+  
   return (
     <Navbar>
       <div className="flex flex-col-reverse justify-between gap-6 md:flex-row md:items-center">
@@ -139,6 +171,15 @@ export function DashboardNavbar() {
           <IconButton variant="text" color="blue-gray">
             <Cog6ToothIcon className="h-5 w-5 text-blue-gray-500" />
           </IconButton>
+          <Button
+              variant="text"
+              color="blue-gray"
+              className="hidden items-center gap-1 px-4 xl:flex normal-case"
+              onClick={handleLogout}
+            >
+              <UserCircleIcon className="h-5 w-5 text-blue-gray-500" />
+              Logout
+            </Button>
         </div>
       </div>
     </Navbar>

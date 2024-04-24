@@ -12,7 +12,7 @@ const Sidebar = () => {
   const location = useLocation();
 
   const Menus = [
-    { title: 'Profile', path: '/profile', src: <CgProfile /> },
+    { title: 'Profile', path: '/accueil', src: <CgProfile /> },
     { title: 'Send Demand', path: '/send-demand', src: <CgProfile /> },
     { title: 'List Demand', path: '/list-demand', src: <CgProfile /> },
 

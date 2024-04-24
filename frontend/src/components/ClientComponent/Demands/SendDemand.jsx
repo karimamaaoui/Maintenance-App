@@ -1,12 +1,29 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import {  Button, Input } from "@material-tailwind/react";
 import axios from "axios";
 
 import { AuthContext } from "../../../contexts/AuthContext";
 import { toast } from "react-toastify";
+import { useCookies } from "react-cookie";
+import { useNavigate } from "react-router-dom";
 
 function SendDemand() {
-    const { auth } = useContext(AuthContext);
+  const { auth } = useContext(AuthContext); 
+  const [cookies] = useCookies(["jwt"]); 
+  const navigate = useNavigate();
+
+
+  useEffect(() => {
+      if (!auth.accessToken || !cookies.jwt) {
+          console.error('Access token or cookie is missing',auth.accessToken);
+          navigate('/login', { replace: true });   
+
+        }
+        
+    }, [auth.accessToken, cookies.jwt]);
+    
+  
+
 
   const [formData, setFormData] = useState({
     organisationName: "",

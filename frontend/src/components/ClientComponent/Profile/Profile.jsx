@@ -13,7 +13,7 @@ function Profile() {
   useEffect(() => {
     const getProfile = async () => {
       // Check if auth.accessToken and cookies.jwt are available
-      if (!auth.accessToken && !cookies.jwt) {
+      if (!auth.accessToken || !cookies.jwt) {
         console.error("Access token or cookie is missing", auth.accessToken);
         return <Navigate  replace to="/login" />;
       }

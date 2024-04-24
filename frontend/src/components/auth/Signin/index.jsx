@@ -16,6 +16,8 @@ const Signin = () => {
   const [cookies, setCookie] = useCookies(["jwt"]);
   const navigate = useNavigate();
   const { auth, setAuth } = useContext(AuthContext);
+
+  
  //console.log("auth ", auth)
 
   const handleSubmit = (e) => {

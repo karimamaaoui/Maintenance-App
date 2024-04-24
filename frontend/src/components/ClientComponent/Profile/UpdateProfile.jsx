@@ -55,7 +55,7 @@ function UpdateProfile() {
         },
       });
       //navigate to route profile
-      navigate('/profile');
+      navigate('/accueil');
       // Handle successful update
     } catch (error) {
       // Handle error
