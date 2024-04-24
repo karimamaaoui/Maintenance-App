@@ -1,5 +1,20 @@
 const DemandAdd = require("../models/DemandAdd");
+const User = require("../models/User");
 const StateDemand = require("../models/enums/StateDemand");
+const Notification = require("../models/notificationModel");
+
+// Function to find admin user by role
+const findAdminUser = async () => {
+  try {
+    // Find the user with role "admin"
+    const adminUser = await User.findOne({ role: 'ADMIN' });
+    return adminUser ? adminUser._id : null; // Return the ID if found, otherwise null
+  } catch (error) {
+    console.error('Error finding admin user:', error);
+    return null;
+  }
+};
+
 
 const sendDemand = async (req, res) => {
   try {
@@ -18,6 +33,24 @@ const sendDemand = async (req, res) => {
     });
     // Save the demand to the database
     await newDemand.save();
+
+    //Send notification to the admin
+    const adminId = await findAdminUser();
+    if (adminId) {
+      console.log('Admin user ID:', adminId);
+    } else {
+      console.log('Admin user not found');
+    }   
+    const notificationMessage = `New demand received from client: ${clientId}`;
+    const newNotification = new Notification({
+      message: notificationMessage,
+      sender: clientId,
+      receiver: adminId,
+    });
+
+
+    await newNotification.save();
+
 
     res.status(201).send({message : "Demand sended successfully",demand: newDemand});
   } catch (err) {
@@ -59,6 +92,7 @@ const updateDemandState = async (req, res) => {
     // Update the state of the demand
     demand.state = state;
     await demand.save();
+    await Notification.findOneAndDelete({ message: `New demand received from client: ${demand.client}` });
 
     res
       .status(200)

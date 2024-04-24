@@ -8,10 +8,6 @@ const cookieParser=require('cookie-parser')
 const cors=require("cors")
 const corsOptions =require("./config/corsOption");
 
-
-
-
-
 const PORT = process.env.PORT || 5000;
 connectDB();
 
@@ -26,6 +22,8 @@ app.use(express.json());
 app.use("/auth",require("./routes/authRoutes"))
 app.use('/users',require('./routes/userRouter'));
 app.use('/demand',require('./routes/demandRoute'));
+app.use('/sponsor',require('./routes/sponsorRoute'));
+app.use('/notif',require('./routes/notificationRoutes'));
 
 
 app.use("/",require("./routes/root"))
