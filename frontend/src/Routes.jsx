@@ -32,7 +32,6 @@ import LayoutClient from "./components/ClientComponent/LayoutClient";
 import SendDemand from "./components/ClientComponent/Demands/SendDemand";
 import ListDemand from "./components/ClientComponent/Demands/ListDemand"
 
-
 const router = createBrowserRouter(
   createRoutesFromElements([
     <Route key="home" path="/" element={<Home />} />,
@@ -40,6 +39,7 @@ const router = createBrowserRouter(
     <Route key="register" path="register" element={<Signup />} />,
     <Route key="admin" path="admin" element={<HomeAdmin />} />,
     <Route key="profileAdmin" path="profileAdmin" element={<ProfileAdmin />} />,
+
 
     <Route path='/dashboard' element={<Layout><DashboardKarima /></Layout>} />,
     <Route path='/coursekarima' element={<Layout><CourseKarima /> </Layout>} />,
