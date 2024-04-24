@@ -2,6 +2,7 @@ const DemandAdd = require("../models/DemandAdd");
 const User = require("../models/User");
 const StateDemand = require("../models/enums/StateDemand");
 const Notification = require("../models/notificationModel");
+const { sendAcceptanceEmail } = require("../utils/sendEmail");
 
 // Function to find admin user by role
 const findAdminUser = async () => {
@@ -94,6 +95,21 @@ const updateDemandState = async (req, res) => {
     await demand.save();
     await Notification.findOneAndDelete({ message: `New demand received from client: ${demand.client}` });
 
+    if (state === 'ACCEPTED') {
+      // Fetch user details from the database using the demand.client ID
+      const user = await User.findById(demand.client);
+      
+      // Check if the user exists and has an email
+      if (user && user.email) {
+        // Replace 'user.email', 'user.username', and 'link' with appropriate values
+        await sendAcceptanceEmail(user.email, user.firstname, 'https://example.com');
+      } else {
+        console.log('User not found or does not have an email');
+      }
+    }
+
+
+    
     res
       .status(200)
       .json({

@@ -25,7 +25,7 @@ const restPasswordEmail = async (email,fullname,link)=>{
         subject: "Reset Password", // Subject line
         html: `
             <div>
-                <p>Dear ${fullname},</p>,
+                <p>Dear ${fullname}</p>,
                 <p>to Reset your password, please click <a href="${link}"> here</a> </p>
             </div>
         `, // html body
@@ -34,4 +34,21 @@ const restPasswordEmail = async (email,fullname,link)=>{
 }
 
 
-module.exports = {verifyEmail,restPasswordEmail};
+
+const sendAcceptanceEmail = async (email,fullname,link)=>{
+    return await  transporter.sendMail({
+        from: '"Maintenace Agency 👻" scongresses@gmail.com', // sender address
+        to: email, // list of receivers
+        subject: "Acceptance your Organisation", // Subject line
+        html: `
+            <div>
+                <p>Dear ${fullname},</p>
+                <p>Your Demand to add your organisation to our application was accepted Sussfully, please click <a href="${link}"> here</a> </p>
+            </div>
+        `, // html body
+      });
+    
+}
+
+
+module.exports = {verifyEmail,restPasswordEmail,sendAcceptanceEmail};
