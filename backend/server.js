@@ -24,7 +24,7 @@ app.use('/users',require('./routes/userRouter'));
 app.use('/demand',require('./routes/demandRoute'));
 app.use('/sponsor',require('./routes/sponsorRoute'));
 app.use('/notif',require('./routes/notificationRoutes'));
-
+app.use('/equipements',require('./routes/EquipementRoute'));
 
 app.use("/",require("./routes/root"))
 
