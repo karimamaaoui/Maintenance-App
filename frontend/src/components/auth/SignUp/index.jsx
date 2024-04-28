@@ -22,7 +22,7 @@ const Signup = () => {
     console.log("data", data);
 
     axios
-      .post("http://localhost:5000/auth/register", data)
+      .post("http://localhost:5001/auth/register", data)
       .then((response) => {
         console.log(response);
         if (response.data.status) {

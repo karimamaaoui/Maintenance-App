@@ -12,7 +12,7 @@ const ForgetPassword = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log("Forget password request submitted for email:", email);
-    axios.post("http://localhost:5000/auth/forgot",{email})
+    axios.post("http://localhost:5001/auth/forgot",{email})
     .then(res =>{
       console.log(res.data)
       toast.info("Check your email");

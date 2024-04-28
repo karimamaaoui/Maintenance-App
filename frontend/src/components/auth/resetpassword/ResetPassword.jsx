@@ -11,7 +11,7 @@ const ResetPassword = () => {
     const {id,token} = useParams()
     const handleSubmit = (e) => {
         e.preventDefault();
-        axios.post(`http://localhost:5000/auth/reset-password/${id}/${token}`,{password})
+        axios.post(`http://localhost:5001/auth/reset-password/${id}/${token}`,{password})
         .then(res =>{
           console.log(res.data)
           toast.success("Password reset successful"); // Show success toast

@@ -20,7 +20,7 @@ function Profile() {
 
       try {
         const response = await axios.get(
-          "http://localhost:5000/users/getuser",
+          "http://localhost:5001/users/getuser",
           {
             headers: {
               Authorization: `Bearer ${auth.accessToken}`,

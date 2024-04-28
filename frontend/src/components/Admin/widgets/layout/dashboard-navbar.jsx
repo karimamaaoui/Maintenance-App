@@ -39,7 +39,7 @@ export function DashboardNavbar() {
     const fetchNotifications = async () => {
       try {
         const response = await axios.get(
-          "http://localhost:5000/notif/notifications", {
+          "http://localhost:5001/notif/notifications", {
             headers: {
               Authorization: `Bearer ${auth.accessToken}`,
             },
@@ -62,7 +62,7 @@ export function DashboardNavbar() {
   const handleLogout = async () => {
     try {
         const response = await axios.post(
-            "http://localhost:5000/auth/logout"
+            "http://localhost:5001/auth/logout"
         );
         console.log("response",response)
 

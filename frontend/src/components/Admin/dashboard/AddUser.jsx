@@ -47,7 +47,7 @@ function AddUser() {
       // Send a POST request to the API endpoint with the user data
 
       const response = await axios.post(
-        "http://localhost:5000/users/addnewuser",
+        "http://localhost:5001/users/addnewuser",
         newUser,
         {
           headers: {

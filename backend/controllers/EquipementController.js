@@ -31,6 +31,21 @@ const getEquipements = async (req,res)=>{
 
 };
 
+const getEquipementByid = async (req,res)=>{
+    Equipement.findById(req.params.id).then(equipement =>{
+        if(!equipement){
+            return res.status(404).send({message:"equipement not found with this" +req.params.id});
+        }
+        res.send(equipement);
+    }).catch(err=>{
+        if(err.kind === "ObjectId"){
+            return res.status(404).send({message:"error getting equipement with  id" + req.params.id});
+        }
+        return res.status(500).send({message:"something wrong while getting equipements"});
+    });
+
+}
+
 const deleteEquipement = async(req,res)=>{
     Equipement.findByIdAndDelete(req.params.id)
     .then((equipement)=>{
@@ -76,6 +91,7 @@ const updateEquipement = async (req,res)=>{
 module.exports={
     createEquipement,
     getEquipements,
+    getEquipementByid,
     deleteEquipement,
     updateEquipement
 }

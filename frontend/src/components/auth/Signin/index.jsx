@@ -29,7 +29,7 @@ const Signin = () => {
     };
 
     axios
-      .post("http://localhost:5000/auth/login", data)
+      .post("http://localhost:5001/auth/login", data)
       .then((response) => {
         setCookie("jwt", response.data.accessToken, { path: "/" });
         // Decode the JWT to get user information

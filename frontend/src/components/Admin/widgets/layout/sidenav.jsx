@@ -5,6 +5,8 @@ import { AiFillPieChart } from 'react-icons/ai';
 import { SiFuturelearn } from 'react-icons/si';
 import { SiOpenaccess } from 'react-icons/si';
 import { CgList, CgProfile } from 'react-icons/cg';
+import { AiOutlinePlusCircle } from 'react-icons/ai';
+
 
 const Sidenav = () => {
   const [open, setOpen] = useState(true);
@@ -20,6 +22,7 @@ const Sidenav = () => {
      
     },
     { title: 'Demand Add', path: '/demand-add', src: <CgList /> },
+    { title: 'Add Equipement', path: '/Add-Equipement', src: <AiOutlinePlusCircle /> },
     { title: 'Profile', path: '/profilekarima', src: <CgProfile /> },
 
     { title: 'Logout', path: '/demand-add', src: <SiOpenaccess />, gap: 'true' },

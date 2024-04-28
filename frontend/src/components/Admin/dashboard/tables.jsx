@@ -20,7 +20,7 @@ export function Tables() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get("http://localhost:5000/users/", {
+        const response = await axios.get("http://localhost:5001/users/", {
           headers: {
             Authorization: `Bearer ${auth.accessToken}`,
           },

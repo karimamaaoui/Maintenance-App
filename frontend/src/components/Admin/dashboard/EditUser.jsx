@@ -29,7 +29,7 @@ const EditUser = () => {
     const fetchUser = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:5000/users/get-user/${id}`,
+          `http://localhost:5001/users/get-user/${id}`,
           {
             headers: {
               Authorization: `Bearer ${auth.accessToken}`,
@@ -66,7 +66,7 @@ const EditUser = () => {
     // Send a PUT request to update the user data
     try {
       const response = await axios.put(
-        `http://localhost:5000/users/update-user/${id}`,
+        `http://localhost:5001/users/update-user/${id}`,
         updatedUser,
         {
           headers: {

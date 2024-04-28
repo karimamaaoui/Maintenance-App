@@ -25,7 +25,7 @@ function EditDemandAdd() {
     const fetchDemand = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:5000/demand/get-demand/${id}`,
+          `http://localhost:5001/demand/get-demand/${id}`,
           {
             headers: {
               Authorization: `Bearer ${auth.accessToken}`,
@@ -51,7 +51,7 @@ function EditDemandAdd() {
     // Send a PUT request to update the demand data
     try {
       const response = await axios.put(
-        `http://localhost:5000/demand/changestate/${id}`,
+        `http://localhost:5001/demand/changestate/${id}`,
         updatedDemand,
         {
           headers: {

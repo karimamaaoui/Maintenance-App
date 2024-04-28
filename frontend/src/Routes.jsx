@@ -30,7 +30,10 @@ import DemandAdd from "./components/Admin/dashboard/demand-add";
 import EditDemandAdd from "./components/Admin/dashboard/editDemandAdd";
 import LayoutClient from "./components/ClientComponent/LayoutClient";
 import SendDemand from "./components/ClientComponent/Demands/SendDemand";
-import ListDemand from "./components/ClientComponent/Demands/ListDemand"
+import ListDemand from "./components/ClientComponent/Demands/ListDemand";
+import AddEquipement from "./components/Admin/dashboard/Add-Equipement";
+import EditEquipement from "./components/Admin/dashboard/edit-equipement";
+import AjoutEquipement from "./components/Admin/dashboard/ajout-equipement"
 
 const router = createBrowserRouter(
   createRoutesFromElements([
@@ -51,6 +54,10 @@ const router = createBrowserRouter(
 
     <Route path='/adduser' element={<Layout><AddUser /> </Layout> } />,
     <Route exact path="/edit/:id" element={<Layout><EditUser/> </Layout>} /> ,
+
+    <Route path='/Add-Equipement' element={<Layout><AddEquipement /> </Layout>} />,
+    <Route path='/edit-equipement/:id' element={<Layout><EditEquipement /> </Layout>} />,
+    <Route path='/ajout-equipement' element={<Layout><AjoutEquipement /> </Layout>} />,
 
     <Route key="forgot" path="forgot" element={<ForgotPassword />} />,
     <Route key="reset" path="reset/:id/:token" element={<RestPassword />} />,
