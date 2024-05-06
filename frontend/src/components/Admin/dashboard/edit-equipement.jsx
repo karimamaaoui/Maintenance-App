@@ -18,11 +18,11 @@ function EditEquipement() {
 
   const [equipement, setEquipement] = useState({});
   const [name, setName] = useState("");
-const [description, setDescription] = useState("");
-const [model, setModel] = useState("");
-const [purchase_date, setPurchaseDate] = useState("");
-const [barcode, setBarcode] = useState("");
-const [status, setStatus] = useState("");
+  const [description, setDescription] = useState("");
+  const [model, setModel] = useState("");
+  const [purchase_date, setPurchaseDate] = useState("");
+  const [barcode, setBarcode] = useState("");
+  const [status, setStatus] = useState("");
   const navigate = useNavigate();
 
   const { id } = useParams();
@@ -56,12 +56,12 @@ const [status, setStatus] = useState("");
   const handleSubmit = async (e) => {
     e.preventDefault();
     const updatedEquipement = {
-        name,
-        description,
-        model,
-        purchase_date,
-        barcode,
-        status,
+      name,
+      description,
+      model,
+      purchase_date,
+      barcode,
+      status,
     };
     // Send a PUT request to update the equipement data
     try {
@@ -150,12 +150,24 @@ const [status, setStatus] = useState("");
               <Typography variant="h6" color="black">
                 Status:
               </Typography>
+              <Select
+                value={status}
+                onChange={(value) => setStatus(value)}
+              >
+                <option value="">-- Select status --</option>
+                <option value="STATUS_1">En Panne</option>
+                <option value="STATUS_2">In Maintenance</option>
+                <option value="STATUS_3">Fixed</option>
+              </Select>
+              {/* <Typography variant="h6" color="black">
+                Status:
+              </Typography>
               <Input
                 size="regular"
                 placeholder="Enter barcode"
                 value={status}
                 onChange={(e) => setStatus(e.target.value)}
-              />
+              /> */}
             </div>
             <div>
               <form onSubmit={handleSubmit}>
