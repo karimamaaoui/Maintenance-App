@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 
 const SponsorSchema = new mongoose.Schema(
   {
-    name: {
+    nameSponsor: {
         type: String,
         required: true
     },

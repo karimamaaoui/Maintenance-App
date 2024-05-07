@@ -21,27 +21,34 @@ const GetSponsor = async (req,res)=>{
 }
 
 // insertion d'un sponsor jdid 
-
-const AddSponsor = async (req,res)=>{
-
+const AddSponsor = async (req, res) => {
     try {
-        const { name, contactPerson, email, phone, logo, website } = req.body;
-        
-    const new_Sponsor = new Sponsor({
-        name,
+      const { nameSponsor, contactPerson, email, phone, website } = req.body;
+  
+      // Check if file is uploaded
+      if (!req.file) {
+        return res.status(400).json({ error: 'Logo file is required' });
+      }
+  
+      const logo = req.file.path; // Save the path of the uploaded file
+  
+      const new_Sponsor = new Sponsor({
+        nameSponsor,
         contactPerson,
         email,
         phone,
         logo,
         website,
-    });
-    await new_Sponsor.save();
-    res.status(201).json({ message: 'Sponsor added successfully', sponsor : new_Sponsor });
-} catch (error) {
-    console.error(error);
-    res.status(500).json({ error: 'Internal server error' });
-  }
-
+      });
+  
+      await new_Sponsor.save();
+      res.status(201).json({ message: 'Sponsor added successfully', sponsor: new_Sponsor });
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ error: 'Internal server error' });
+    }
+  
+  
 }
 // get all sponsors 
 
@@ -72,15 +79,14 @@ const UpdateSponsor = async (req,res)=>{
 }
 
 // delete by id 
-
 const DeleteSponById = async (req, res) => {
     try {
         const sponsorId = req.params.sponsorId;
 
         // Check if the sponsor exists
-        const Sponsor = await Sponsor.findById(sponsorId);
-        if (!Sponsor) {
-            return res.status(404).json({ message: "Sponsor not here " });
+        const foundSponsor = await Sponsor.findById(sponsorId); 
+        if (!foundSponsor) {
+            return res.status(404).json({ message: "Sponsor not found" });
         }
 
         // If the sponsor exists, delete it
@@ -92,6 +98,7 @@ const DeleteSponById = async (req, res) => {
         return res.status(500).json({ message: "Internal server error" });
     }
 };
+
 
 module.exports={
     GetSponsor,

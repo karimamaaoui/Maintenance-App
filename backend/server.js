@@ -17,6 +17,7 @@ app.use(cors());
 
 app.use(cookieParser())
 app.use(express.json());
+app.use('/uploads', express.static('uploads'));
 
 //Routes
 app.use("/auth",require("./routes/authRoutes"))
@@ -25,6 +26,7 @@ app.use('/demand',require('./routes/demandRoute'));
 app.use('/sponsor',require('./routes/sponsorRoute'));
 app.use('/notif',require('./routes/notificationRoutes'));
 app.use('/equipements',require('./routes/EquipementRoute'));
+app.use('/sponsor',require('./routes/sponsorRoute'));
 
 app.use("/",require("./routes/root"))
 
