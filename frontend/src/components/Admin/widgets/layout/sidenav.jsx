@@ -23,6 +23,8 @@ const Sidenav = () => {
     },
     { title: 'Demand Add', path: '/demand-add', src: <CgList /> },
     { title: 'Add Equipement', path: '/Add-Equipement', src: <AiOutlinePlusCircle /> },
+    { title: 'Sponsors', path: '/sponsors', src: <CgProfile /> },
+
     { title: 'Profile', path: '/profilekarima', src: <CgProfile /> },
 
     { title: 'Logout', path: '/demand-add', src: <SiOpenaccess />, gap: 'true' },

@@ -12,7 +12,6 @@ import Signup from "./components/auth/SignUp/index";
 import ForgotPassword from "./components/auth/forgotPassword/ForgetPassword";
 import RestPassword from "./components/auth/resetpassword/ResetPassword";
 import Accueil from "./components/ClientComponent/Accueil/Accueil";
-import Profile from "./components/ClientComponent/Profile/Profile";
 import NoRouteFound from "./components/NoRoutes/NoRouteFound";
 import PrivateRoute from "./PrivateRoute";
 import UpdateProfile from "./components/ClientComponent/Profile/UpdateProfile";
@@ -34,6 +33,8 @@ import ListDemand from "./components/ClientComponent/Demands/ListDemand";
 import AddEquipement from "./components/Admin/dashboard/Add-Equipement";
 import EditEquipement from "./components/Admin/dashboard/edit-equipement";
 import AjoutEquipement from "./components/Admin/dashboard/ajout-equipement"
+import AddSponsor from "./components/Admin/dashboard/sponsors/addSponsor";
+import ListSponsor from "./components/Admin/dashboard/sponsors/listSponsor";
 
 const router = createBrowserRouter(
   createRoutesFromElements([
@@ -63,6 +64,8 @@ const router = createBrowserRouter(
     <Route key="reset" path="reset/:id/:token" element={<RestPassword />} />,
     <Route key="updateProfile" path="updateProfile" element={<UpdateProfile />} />,
    
+    <Route key="sponsors" path="sponsors" element={<Layout><ListSponsor /> </Layout>} />,
+    <Route key="addsponsor" path="addsponsor" element={<Layout><AddSponsor /> </Layout>} />,
    
 <Route key="send-demand-page" exact path='/send-demand' element={<LayoutClient><SendDemand /> </LayoutClient> } />,
 <Route key="private-send-demand" exact path="/send-demand" element={<PrivateRoute roles={['CLIENT','ADMIN']} />} />,
