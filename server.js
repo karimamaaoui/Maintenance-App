@@ -28,6 +28,7 @@ app.use('/users',require('./routes/userRouter'));
 app.use('/demand',require('./routes/demandRoute'));
 app.use('/S',require('./routes/suiviD'));
 app.use('/api',require('./routes/UpdateState'));
+app.use('/task',require('./routes/TaskRouter'))
 
 
 app.use("/",require("./routes/root"))
